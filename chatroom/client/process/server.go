@@ -1,8 +1,10 @@
 package process
 
 import (
+	"encoding/json"
 	"fmt"
 	"gotest/chatroom/client/utils"
+	"gotest/chatroom/common/message"
 	"net"
 	"os"
 )
@@ -44,7 +46,16 @@ func ServerProcessMes(conn net.Conn) {
 			fmt.Println("ts.readpkg err=", err)
 			return
 		}
-		//如果读到消息 又是下一步的处理逻辑
-		fmt.Printf("mes=%v\n", mes)
+		switch mes.Type {
+		case message.NotifyUserStatusMesType:
+			//1.取出notifyuserstatusmes
+			var notifyUserStatusMes message.NotifyUserStatusMes
+			json.Unmarshal([]byte(mes.Data), &notifyUserStatusMes)
+			//2 把这个用户信息保存到客户map中
+			updateUserStatus(&notifyUserStatusMes)
+		default:
+			fmt.Println("服务器返回了位置的消息类型")
+		}
+
 	}
 }

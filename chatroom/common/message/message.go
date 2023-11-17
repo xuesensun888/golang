@@ -7,6 +7,11 @@ const (
 	RegisterResMesType      = "RegisterResMes"
 	NotifyUserStatusMesType = "NotifyUserStatusMes"
 )
+const (
+	UserOnline = iota
+	UserOffline
+	UserBusyStatus
+)
 
 type Message struct {
 	Type string `json:"type"` //消息类型

@@ -109,6 +109,7 @@ func (this *UserProcess) ServerProcessLogin(mes *message.Message) (err error) {
 		//将登陆成功的用户的userid 赋值给this
 		this.UserId = loginMes.UserId
 		userMgr.AddOnlineUser(this)
+		this.NotifyOthersOnlineUser(loginMes.UserId)
 		//将当前的在线用户的id 放入到loginresmes.userid
 		//遍历usermgr.onlineusers
 		for id, _ := range userMgr.onlineUsers {
@@ -138,18 +139,47 @@ func (this *UserProcess) ServerProcessLogin(mes *message.Message) (err error) {
 	err = tf.WritePkg(data)
 	return
 }
-func(this *UserProcess) NotifyOthersOnlineUser(userId int){
+func (this *UserProcess) NotifyOthersOnlineUser(userId int) {
 	//遍历onlinesers
-	for id,up := range userMgr.onlineUsers{
+	for id, up := range userMgr.onlineUsers {
 		//过滤到自己
 		if id == userId {
 			continue
 		}
-		
+		up.NotifyMeOnlne(userId)
 	}
 
 }
-func(this *UserProcess) NotifyMeOnlne(userId int){
+func (this *UserProcess) NotifyMeOnlne(userId int) {
 	//定义一个mes结构体
-	var mes message.
+	var mes message.Message
+	mes.Type = message.NotifyUserStatusMesType
+	//定义一个notifyuserstatusmes结构体
+	var notifyUserStatusMes message.NotifyUserStatusMes
+	notifyUserStatusMes.UserId = userId
+	notifyUserStatusMes.Status = message.UserOnline
+
+	//将notifyuserstatusmes序列化
+	data, err := json.Marshal(notifyUserStatusMes)
+	if err != nil {
+		fmt.Println("marchal.err ==", err)
+		return
+	}
+	//将data赋值给mes
+	mes.Data = string(data)
+	//将mes序列化
+	data, err = json.Marshal(mes)
+	if err != nil {
+		fmt.Println("json.marshal =", err)
+		return
+	}
+	//将data发送给各个用户
+	tf := utils.Transfer{
+		Conn: this.Conn,
+	}
+	err = tf.WritePkg(data)
+	if err != nil {
+		fmt.Println("notifyotheronline err", err)
+		return
+	}
 }
