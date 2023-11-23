@@ -14,6 +14,7 @@ type Processor struct {
 }
 
 func (this *Processor) serverProcessMes(mes *message.Message) (err error) {
+	fmt.Println("mes===========", mes)
 	switch mes.Type {
 	case message.LoginMesType:
 		{
