@@ -57,6 +57,8 @@ func ServerProcessMes(conn net.Conn) {
 			json.Unmarshal([]byte(mes.Data), &notifyUserStatusMes)
 			//2 把这个用户信息保存到客户map中
 			updateUserStatus(&notifyUserStatusMes)
+		case message.SmsMesType:
+			outputGroupMes(&mes)
 		default:
 			fmt.Println("服务器返回了位置的消息类型")
 		}

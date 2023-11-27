@@ -14,7 +14,7 @@ type Processor struct {
 }
 
 func (this *Processor) serverProcessMes(mes *message.Message) (err error) {
-	fmt.Println("mes===========", mes)
+
 	switch mes.Type {
 	case message.LoginMesType:
 		{
@@ -32,6 +32,9 @@ func (this *Processor) serverProcessMes(mes *message.Message) (err error) {
 			err = up.ServerProcessRegister(mes)
 			return
 		}
+	case message.SmsMesType:
+		smsProcess := &process2.SmsProcess{}
+		smsProcess.SendGroupMes(mes)
 	default:
 		{
 			fmt.Println("消息类型不存在")
