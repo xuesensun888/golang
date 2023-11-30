@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-//定义变量
+// 定义变量
 var userId int
 var userPwd string
 var userName string

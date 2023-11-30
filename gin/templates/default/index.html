@@ -1,0 +1,41 @@
+<!-- 相当于给模版定义一个名字，define end成对出现的 -->
+{{ define "default/index.html" }}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/base.css">
+    <title>首页</title>
+    
+</head>
+<body>
+    {{ template "public/header.html" .}}
+    <h2>{{.title}}</h2>
+    <ul>
+        {{range $key,$value := .hobby}}
+        <li>{{$key}}---------{{$value}}</li>
+        {{end}}
+    </ul>
+    <ul>
+        {{range $key,$value := .newList}}
+        <li>{{$key}}---------{{$value}}</li>
+        {{end}}
+    </ul>
+    <br>
+   {{.date}}
+    <br>
+    <!-- 引用静态图片文件 -->
+    <img src="/static/images/test.JPG" alt="">
+    <!-- 调用模版函数 -->
+    {{UnixToTime .date}}
+    <br>
+    <br>
+    {{Println .title .msg}}
+
+    <br>
+    <br>
+    {{ template "public/footer.html" .}}
+</body>
+</html>
+{{ end }}
