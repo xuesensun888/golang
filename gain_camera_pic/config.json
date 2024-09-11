@@ -1,0 +1,12 @@
+{
+    "user": "sxs",
+    "passwd": "sxs",
+    "port": "3306",
+    "host": "127.0.0.1",
+    "dbname": "sxs",
+    "charset": "utf8mb4",
+    "loc": "loc",
+    "parsetime": "True",
+    "downloadpath": "/home/cargo"
+
+}

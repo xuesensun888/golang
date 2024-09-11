@@ -6,10 +6,10 @@ import (
 	"gotest/chatroom/common/message"
 )
 
-//客户端要维护的map
+// 客户端要维护的map
 var onlineUsers map[int]*message.User = make(map[int]*message.User, 10)
 
-//初始化curuser
+// 初始化curuser
 var curUser model.CurUser
 
 //编写一个方法处理notifyuserstatus

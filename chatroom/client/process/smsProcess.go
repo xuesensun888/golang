@@ -9,7 +9,7 @@ import (
 
 type SmsProcess struct{}
 
-func (this *SmsProcess) SendGroupMes(content string) (err error) {
+func (pro *SmsProcess) SendGroupMes(content string) (err error) {
 	//定义一个mes结构体实例
 	var mes message.Message
 	mes.Type = message.SmsMesType

@@ -13,9 +13,9 @@ import (
 type UserProcess struct {
 }
 
-func (this *UserProcess) Login(userId int, userPwd string) (err error) {
+func (pro *UserProcess) Login(userId int, userPwd string) (err error) {
 	//开始定协议
-	conn, err := net.Dial("tcp", "0.0.0.0:9000")
+	conn, err := net.Dial("tcp", "172.24.0.21:9000")
 	if err != nil {
 		fmt.Println("net.dial error ====", err)
 		return
@@ -89,9 +89,9 @@ func (this *UserProcess) Login(userId int, userPwd string) (err error) {
 	return
 
 }
-func (this *UserProcess) Register(userId int, userPwd string, userName string) (err error) {
+func (pro *UserProcess) Register(userId int, userPwd string, userName string) (err error) {
 	//连接服务器
-	conn, err := net.Dial("tcp", "0.0.0.0:9000")
+	conn, err := net.Dial("tcp", "172.24.0.21:9000")
 	if err != nil {
 		fmt.Println("net.dial error", err)
 		return

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>故障提报页面</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            border: none;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>故障提报</h2>
+        <form id="faultForm">
+            <label for="ID">ID</label>
+            <input type="text" id="ID" name="ID" required>
+
+            <label for="Title">Title</label>
+            <input type="text" id="Title" name="Title" required>
+
+            <label for="Description">故障原因</label>
+            <textarea id="Description" name="Description" rows="4" required></textarea>
+            
+            <label for="Severity">严重性</label>
+            <textarea id="Severity" name="Severity" rows="4" ></textarea>
+
+            <label for="Reporter">解决办法</label>
+            <textarea id="Reporter" name="Reporter" rows="4" required></textarea>
+
+            <label for="Timestamp">时间戳</label>
+            <input type="text" id="Timestamp" name="Timestamp" >
+
+            <button type="submit">提交</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('faultForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // 防止表单提交自动刷新页面
+
+            const faultData = {
+                ID: document.getElementById('ID').value,
+                title: document.getElementById('Title').value,
+                Severity: document.getElementById('Severity').value,
+                Description: document.getElementById('Description').value,
+                Reporter: document.getElementById('Reporter').value,
+                Timestamp: document.getElementById('Timestamp').value,
+            };
+
+            // 使用 fetch API 提交数据到后端
+            fetch('http://172.24.0.21:8899/api/v1/operation/report_fault', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(faultData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert('提交成功: ' + data.message);
+                // 重置表单
+                document.getElementById('faultForm').reset();
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('提交失败，请重试');
+            });
+        });
+    </script>
+</body>
+</html>

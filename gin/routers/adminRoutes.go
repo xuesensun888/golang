@@ -10,7 +10,9 @@ import (
 func AdminRoutersInit(r *gin.Engine) {
 	adminRoutes := r.Group("/admin", middlewares.InitMiddleware)
 	{
-		adminRoutes.GET("/", admin.IndexController{}.Index)
+		adminRoutes.GET("/", admin.UserController{}.Add)
+		adminRoutes.POST("/doUpload", admin.UserController{}.DoUpload)
+
 		adminRoutes.GET("/user", admin.UserController{}.Index)
 		adminRoutes.GET("/user/add", admin.UserController{}.Add)
 		adminRoutes.GET("/user/Edit", admin.UserController{}.Edit)

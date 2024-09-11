@@ -24,13 +24,13 @@ func init() {
 	initUserDao()
 }
 
-//这里我们编写一个函数，完成对userdao的初始化任务
+// 这里我们编写一个函数，完成对userdao的初始化任务
 func initUserDao() {
 	model.MyUserDao = model.NewUserDao(pool)
 }
 func main() {
 	fmt.Println("服务器正在监听端口9000")
-	listen, err := net.Listen("tcp", "0.0.0.0:9000")
+	listen, err := net.Listen("tcp", "172.24.0.21:9000")
 	if err != nil {
 		fmt.Println("listen error", err)
 	}

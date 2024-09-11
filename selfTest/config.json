@@ -1,0 +1,93 @@
+{
+  "dns": {
+    "servers": [
+      "localhost"
+    ]
+  },
+  "routing": {
+    "domainStrategy": "IPIfNonMatch",
+    "rules": [
+      {
+        "type": "field",
+        "ip": [
+          "1.1.1.1/32",
+          "1.0.0.1/32",
+          "8.8.8.8/32",
+          "8.8.4.4/32"
+        ],
+        "outboundTag": "proxy"
+      },
+     
+      {
+        "type": "field",
+        "ip": [
+          "223.5.5.5/32",
+          "119.29.29.29/32",
+          "180.76.76.76/32",
+          "114.114.114.114/32"
+        ],
+        "outboundTag": "direct"
+      }
+    ]
+  },
+    "inbounds" : [
+      {
+        "listen" : "127.0.0.1",
+        "protocol" : "socks",
+        "settings" : {
+          
+          "auth" : "noauth"
+         
+        },
+        "tag" : "socksinbound",
+        "port" : 1081
+      }
+    ],
+    "outbounds" : [
+      {
+        "tag": "proxy",
+        "protocol" : "vless",
+        "settings" : {
+          "vnext" : [
+            {
+              "address" : "blog.xueson.com.cn",
+              "users" : [
+                {
+                  "flow" : "xtls-rprx-vision",
+                  "id" : "c67f727a-a70e-4510-8a21-1deef7d337bc",
+                  "alterId" : 64,
+                  "security" : "auto",
+                  "level" : 0,
+                  "encryption" : "none"
+                }
+              ],
+              "port" : 443
+            }
+          ]
+        },
+        "streamSettings" : {
+          "xtlsSettings" : {
+            "serverName" : "blog.xueson.com.cn",
+            "allowInsecure" : false,
+            "alpn" : [
+              "http /1.1",
+              "h2"
+            ]
+          },
+          "tlsSettings" : {
+            "allowInsecure" : false,
+            "serverName" : "blog.xueson.com.cn"
+          },
+          "security" : "tls",
+          "network" : "tcp"
+        }
+        
+      },
+      {
+        "tag": "direct",
+        "protocol": "freedom"
+      }
+      
+      
+    ]
+  }

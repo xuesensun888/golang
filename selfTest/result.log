@@ -1,0 +1,31 @@
+check_result: NG
+module: net
+orinID: SL
+project_list:
+  DNS check:
+    reason: ''
+    result: OK
+  IMU ethernet:
+    reason: ''
+    result: OK
+  MCU ethernet:
+    reason: ''
+    result: OK
+  Orin ethernet:
+    reason: ''
+    result: OK
+  PAD ethernet:
+    reason: ping PAD timeout, cannot connect to the PAD
+    result: NG
+  Switch ethernet:
+    reason: ''
+    result: OK
+  Tbox ethernet:
+    reason: ''
+    result: OK
+  V2X ethernet:
+    reason: ping ['192.168.11.123'] timeout
+    result: NG
+  public network:
+    reason: ''
+    result: OK

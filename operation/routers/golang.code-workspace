@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "../../golang"
+		},
+		{
+			"path": ".."
+		},
+		{
+			"path": "../../../../opt/compose/nginx"
+		}
+	],
+	"settings": {}
+}

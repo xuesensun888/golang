@@ -1,0 +1,11 @@
+{
+    "user": "cop",
+    "password": "cop",
+    "host": "172.24.0.21",
+    "port":"3306",
+    "dbname":"cop",
+    "charset":"utf8mb4",
+    "parsetime":"True",
+    "loc":"Local",
+    "downloadpath":"/home/cargo/Downloads1"
+}
